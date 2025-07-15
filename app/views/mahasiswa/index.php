@@ -70,7 +70,7 @@
                 <option value="Teknik Informatika"> Teknik Informatika</option>
                 <option value="Manajemen Informatika">Manajemen Informatika</option>
                 <option value="akuntansi">akuntansi</option>
-        </select>
+         </select>
         </div>
             </div>
             <div class="modal-footer">
