@@ -1,22 +1,23 @@
 <?php
 
-class Mahasiswa extend Controller {
+class Mahasiswa extends Controller 
+{
     public function index()
     {
     $data['judul'] = 'Daftar mahasiswa';
     $data['mhs'] = $this->model('Mahasiswa_model')->getAllMahasiswa();
-    $this->('templates/header', $data);
-    $this->('templates/index', $data);
-    $this->('templates/footer');
+    $this->view('templates/header', $data);
+    $this->view('templates/index', $data);
+    $this->view('templates/footer');
     }
 
     public function detail($id)
     {
     $data['judul'] = 'detail mahasiswa';
     $data['mhs'] = $this->model('Mahasiswa_model')->getAllMahasiswaById($id);
-    $this->('templates/header', $data);
-    $this->('templates/detail', $data);
-    $this->('templates/footer');
+    $this->view('templates/header', $data);
+    $this->view('templates/details', $data);
+    $this->view('templates/footer');
     }
 
     public function tambah()
@@ -26,7 +27,7 @@ class Mahasiswa extend Controller {
             header('Location:'. BASEURL . '/mahasiswa');
             exit;
         } else {
-            Flasher::setFlash('berhasil', 'ditambahkan', 'danger');
+            Flasher::setFlash('gagal', 'ditambahkan', 'danger');
             header('Location:'. BASEURL . '/mahasiswa');
             exit;
         }
@@ -39,6 +40,26 @@ class Mahasiswa extend Controller {
             exit;
         } else {
             Flasher::setFlash('berhasil', 'ditambahkan', 'danger');
+            header('Location:'. BASEURL . '/mahasiswa');
+            exit;
+        }
+}
+
+
+public function getubah()
+{
+    echo json_encode($this->model('Mahasiswa_model')->
+    getMahasiswaById($_POST['id']));
+}
+
+public function ubah()
+{
+        if( $this->model('Mahasiswa_model')->ubahDataMahasiswa($_POST)> 0 ) {
+            Flasher::setFlash('berhasil', 'diubah', 'success');
+            header('Location:'. BASEURL . '/mahasiswa');
+            exit;
+        } else {
+            Flasher::setFlash('berhasil', 'diubah', 'danger');
             header('Location:'. BASEURL . '/mahasiswa');
             exit;
         }

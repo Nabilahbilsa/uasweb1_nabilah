@@ -1,12 +1,13 @@
 <?php
 
+require_once '../core/Database.php';
 class Mahasiswa_model {
     private $table ='mahasiswa';
     private$db;
 
     public function __construct()
     {
-        $this->db-> = new Database;
+        $this->db = new Database;
     }
 
 //     private $mhs = [
@@ -45,17 +46,17 @@ public function getAllMahasiswa()
     
 public function getMahasiswaById($id)
      {
-        $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id'); 
-     }
-     
+        $this->db->query('SELECT * FROM 
+     ' .$this->table . ' WHERE id=:id') ; 
+        $this->db->bind('id', $id);
      return $this->db->single();
 }
 
-public function tambah DataMahasiswa($data)
+public function tambahDataMahasiswa($data)
 {
     $query = "INSERT INTO mahasiswa
         VALUES
-        ('', :nama, :nrp, :email, :jurusan)";
+        ('', :nama, :nim, :email, :jurusan)";
 
     $this->db->query($query);
     $this->db->bind('nama', $data['nama']);
@@ -63,12 +64,8 @@ public function tambah DataMahasiswa($data)
     $this->db->bind('email', $data['email']);
     $this->db->bind('jurusan', $data['jurusan']);
 
-
     this->db->execute();
-
-
     return $this->db->rowCount();
-
 }
 
 public function hapusDataMahasiswa($id)
@@ -80,4 +77,5 @@ public function hapusDataMahasiswa($id)
     $this->db->execute();
 
     return $this->db->rowCounr();
+}
 }
