@@ -1,22 +1,14 @@
 <?php
 
-class Mahasiswa_model{
-    private $dbh;
-    private $stmt;
-    private $table = 'mahasiswa';
-    private $db;
+class Mahasiswa_model {
+    private $table ='mahasiswa';
+    private$db;
 
     public function __construct()
     {
-        $dsn = 'mysql:host=localhost;dbname=uasweb1_nabilah';
-
-        try {
-            $this->dbh = new PDO($dsn,'root', '');
-        } catch(PDOException $e) {
-            die ($e->getMessage());
-        }
-        $this->db = new Database;
+        $this->db-> = new Database;
     }
+
 //     private $mhs = [
 //     [
 //         "nama" => "nabilah",
@@ -44,12 +36,18 @@ class Mahasiswa_model{
 //       ]
 // ];
 
+public function getAllMahasiswa()
+     {
+        $this->db->query('SELECT * FROM ' . $this->table);
+        return $this->db->resultSet();
+     }
+
     
 public function getMahasiswaById($id)
      {
         $this->db->query('SELECT * FROM ' . $this->table . ' WHERE id=:id'); 
      }
-     $this->db->bind('id', $id);
+     
      return $this->db->single();
 }
 
@@ -57,7 +55,7 @@ public function tambah DataMahasiswa($data)
 {
     $query = "INSERT INTO mahasiswa
         VALUES
-        ('', :nama, :nim, :email, :jurusan)";
+        ('', :nama, :nrp, :email, :jurusan)";
 
     $this->db->query($query);
     $this->db->bind('nama', $data['nama']);
@@ -70,5 +68,16 @@ public function tambah DataMahasiswa($data)
 
 
     return $this->db->rowCount();
-    
+
+}
+
+public function hapusDataMahasiswa($id)
+{
+    $query = "DELETE FROM mahasiswa WHERE id = :id";
+    $this->db->query($query);
+    $this->db->bind('id', $id);
+
+    $this->db->execute();
+
+    return $this->db->rowCounr();
 }
